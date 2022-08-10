@@ -1,31 +1,11 @@
+import { Mode } from '@anatoliygatt/dark-mode-toggle'
 import { useEffect } from 'react'
 import './App.css'
 import { ThemeSwitch, useGlobalThemeSwitch } from './ThemeSwitch'
-import { useThemeDetector } from './useThemeDetector'
 
 export default function App() {
-	const theme = useThemeDetector()
-
-	// const CheckDarkThemeMode = window.matchMedia(
-	// 	'(prefers-color-scheme:dark)'
-	// ).matches
 	const [themeMode, setThemeMode] = useGlobalThemeSwitch()
-
-	// useEffect(() => {
-	// 	if (CheckDarkThemeMode) {
-	// 		setThemeMode('dark')
-	// 	} else {
-	// 		setThemeMode('light')
-	// 	}
-	// }, [CheckDarkThemeMode, setThemeMode])
-
-	window
-		.matchMedia('(prefers-color-scheme:dark)')
-		.addEventListener('change', (event) => {
-			console.log(event)
-		})
-
-	console.log(theme)
+	const themeFromStorage = localStorage.getItem('__theme_mode__') as Mode
 
 	useEffect(() => {
 		window
@@ -37,7 +17,13 @@ export default function App() {
 					setThemeMode('light')
 				}
 			})
-	}, [themeMode])
+	}, [themeMode, setThemeMode])
+
+	useEffect(() => {
+		if (themeFromStorage !== null) {
+			setThemeMode(themeFromStorage)
+		}
+	}, [])
 
 	return (
 		<div className='App' data-theme={themeMode}>

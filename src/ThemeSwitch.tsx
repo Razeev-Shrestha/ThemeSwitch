@@ -1,4 +1,5 @@
 import { DarkModeToggle, Mode } from '@anatoliygatt/dark-mode-toggle'
+import { useEffect } from 'react'
 import { createUseGlobalStateHook } from './useGlobalState'
 
 export const useGlobalThemeSwitch = createUseGlobalStateHook<Mode>(
@@ -12,6 +13,10 @@ export const ThemeSwitch = () => {
 	const changeTheme = (newTheme: Mode) => {
 		setThemeMode(newTheme)
 	}
+
+	useEffect(() => {
+		localStorage.setItem('__theme_mode__', themeMode)
+	}, [themeMode])
 
 	return (
 		<DarkModeToggle
