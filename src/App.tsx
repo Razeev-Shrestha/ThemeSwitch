@@ -1,8 +1,11 @@
 import { useEffect } from 'react'
 import './App.css'
 import { ThemeSwitch, useGlobalThemeSwitch } from './ThemeSwitch'
+import { useThemeDetector } from './useThemeDetector'
 
 export default function App() {
+	const theme = useThemeDetector()
+
 	// const CheckDarkThemeMode = window.matchMedia(
 	// 	'(prefers-color-scheme:dark)'
 	// ).matches
@@ -15,6 +18,14 @@ export default function App() {
 	// 		setThemeMode('light')
 	// 	}
 	// }, [CheckDarkThemeMode, setThemeMode])
+
+	window
+		.matchMedia('(prefers-color-scheme:dark)')
+		.addEventListener('change', (event) => {
+			console.log(event)
+		})
+
+	console.log(theme)
 
 	useEffect(() => {
 		window
