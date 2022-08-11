@@ -8,6 +8,12 @@ export default function App() {
 	const themeFromStorage = localStorage.getItem('__theme_mode__') as Mode
 
 	useEffect(() => {
+		if (themeFromStorage !== null) {
+			setThemeMode(themeFromStorage)
+		}
+	}, [])
+
+	useEffect(() => {
 		window
 			.matchMedia('(prefers-color-scheme:dark)')
 			.addEventListener('change', (event) => {
@@ -19,15 +25,9 @@ export default function App() {
 			})
 	}, [themeMode, setThemeMode])
 
-	useEffect(() => {
-		if (themeFromStorage !== null) {
-			setThemeMode(themeFromStorage)
-		}
-	}, [])
-
 	return (
 		<div className='App' data-theme={themeMode}>
-			<h1>Hello CodeSandbox</h1>
+			<h1>Hello 😂😂 </h1>
 			<ThemeSwitch />
 
 			<h2>Current Applied Theme:{themeMode} </h2>
